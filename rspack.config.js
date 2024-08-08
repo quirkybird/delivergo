@@ -1,10 +1,9 @@
 // @ts-check
 const path = require('path');
 
+const rspack = require('@rspack/core');
 const HtmlRspackPlugin = require('html-rspack-plugin');
 const ReactRefreshPlugin = require('@rspack/plugin-react-refresh');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-// import type { Configuration } from '@rspack/cli';
 
 const isDevelop = process.env.NODE_ENV === 'development';
 
@@ -51,6 +50,11 @@ const config = {
           },
         ],
       },
+      {
+        test: /\.css$/i,
+        use: [rspack.CssExtractRspackPlugin.loader, 'css-loader'],
+        type: 'javascript/auto',
+      },
     ],
   },
   plugins: [
@@ -59,7 +63,6 @@ const config = {
       template: './public/index.html',
     }),
     isDevelop && new ReactRefreshPlugin(),
-    new CleanWebpackPlugin(),
   ],
   resolve: {
     alias: {
@@ -67,6 +70,12 @@ const config = {
     },
     extensions: ['.tsx', '.jsx', '.ts', '.js'],
   },
+  optimization: {
+    splitChunks: {
+      minSize: 4096,
+    },
+  },
+  devtool: isDevelop ? 'source-map' : false,
   output: {
     publicPath: '/',
     chunkLoading: 'jsonp',

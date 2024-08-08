@@ -19,8 +19,6 @@
     "@types/node": "^22.1.0",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "clean-webpack-plugin": "^4.0.0",
-    "copy-webpack-plugin": "^12.0.2",
     "cross-env": "^7.0.3",
     "html-rspack-plugin": "^5.8.0",
     "react-refresh": "^0.14.2",
